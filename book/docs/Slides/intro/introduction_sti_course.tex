@@ -1,0 +1,230 @@
+% Time-stamp: <Sunday 16 April 2023, Romain Lafarguette>
+% Romain Lafarguette 2020, https://romainlafarguette.github.io/
+
+%% ---------------------------------------------------------------------------
+%% Preamble: Packages and Setup
+%% ---------------------------------------------------------------------------
+% Class 
+\documentclass{beamer}
+
+% Theme
+\usetheme{Boadilla}
+\usecolortheme{dolphin}
+%\setbeamertemplate{headline}{} % Remove the top navigation bar
+
+% Font and encoding
+\usepackage[utf8]{inputenc} % Input font
+\usepackage[T1]{fontenc} % Output font
+\usepackage{lmodern} % Standard LateX font
+\usefonttheme{serif} % Standard LateX font
+
+% Maths 
+\usepackage{amsfonts, amsmath, mathabx, bm, bbm} % Maths Fonts
+
+% Graphics
+\usepackage{graphicx} % Insert graphics
+\usepackage{subfig} % Multiple figures in one graphic
+\graphicspath{{/img}}
+
+% Layout
+\usepackage{changepage}
+
+% Colors
+\usepackage{xcolor}
+\definecolor{imfblue}{RGB}{0,76,151} % Official IMF color
+\setbeamercolor{title}{fg=imfblue}
+\setbeamercolor{frametitle}{fg=imfblue}
+\setbeamercolor{structure}{fg=imfblue}
+
+% Tables
+\usepackage{booktabs,rotating,multirow} % Tabular rules and other macros
+%\usepackage{pdflscape,afterpage} % Landscape mode and afterpage
+%\usepackage{threeparttable} % Split long tables
+\usepackage[font=scriptsize,labelfont=scriptsize,labelfont={color=imfblue}]{caption}
+
+% Import files
+\usepackage{import}
+
+% Appendix slides
+\usepackage{appendixnumberbeamer} % Manage page numbers for appendix slides
+
+% References
+\usepackage{hyperref}
+
+% A few macros: environments
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\newenvironment{extrawideitemize}{\itemize\addtolength{\itemsep}{30pt}}{\enditemize}
+\newenvironment{extrawideenumerate}{\enumerate\addtolength{\itemsep}{30pt}}{\endenumerate}
+
+% Remove navigation symbols and other superfluous elements
+\setbeamertemplate{navigation symbols}{}
+\beamertemplatenavigationsymbolsempty
+
+%\setbeamertemplate{note page}[plain]
+\hypersetup{pdfpagemode=UseNone} % don't show bookmarks on initial view
+\setbeameroption{hide notes}
+
+% Institute font
+\setbeamerfont{institute}{size=\footnotesize}
+\DeclareMathSizes{10}{9}{7}{5}
+
+% Footnote without marker
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+%% ---------------------------------------------------------------------------
+%% Title info
+%% ---------------------------------------------------------------------------
+\title[Introduction]{STI Course on FX Interventions \\ General Introduction}
+
+\author[Lafarguette, Raboun, Chen]{Romain Lafarguette, Ph.D. \and Amine Raboun, Ph.D. \\ \and Zhuohui Chen}
+\institute[IMF]{ADIA Quants \& IMF External Experts \& IMF MCM \blfootnote{\scriptsize{\emph{This training material is the property of the IMF, any reuse requires IMF permission}}} \\
+\begin{center}{\href{https://romainlafarguette.github.io/}{\textcolor{imfblue}{www.romainlafarguette.github.io}} \hspace{0.3cm} \href{https://amineraboun.github.io/}{\textcolor{imfblue}{www.amineraboun.github.io}}} \end{center} \vspace{-0.5cm}} 
+
+\date[STI, 17 April 2023]{\footnotesize Singapore Training Institute, 17 April 2023}
+
+\titlegraphic{\vspace{-0.6cm}
+    \begin{figure}
+    \centering
+    \subfloat{{\includegraphics[width=2cm]{img/imf_logo}}}%
+    \end{figure}}
+
+  
+%% ---------------------------------------------------------------------------
+%% Title slide
+%% ---------------------------------------------------------------------------
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+%% ---------------------------------------------------------------------------
+%% Main Body
+%% ---------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{The Course Website}
+
+Available via: \href{https://amineraboun.github.io/STI_FX_Intervention/docs/index.html}{\beamergotobutton{Course Website}}
+
+\makebox[\linewidth]{\includegraphics[height=0.75\paperheight]{img/website.PNG}}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Overview of the Course}
+  \begin{wideenumerate}
+  \item Conceptual framework and academic literature on FX interventions 
+    \begin{itemize}
+    \item With a few country cases, illustrating the diversity of objectives and operational frameworks    
+    \end{itemize}
+
+  \item New risk-based IMF/MCM framework to time FX intervention rules from Lafarguette and Veyrune (2021) \href{https://www.elibrary.imf.org/view/journals/001/2021/032/001.2021.issue-032-en.xml}{\beamergotobutton{link}}
+    \begin{itemize}
+    \item Using the new Python package developped by Lafarguette and Raboun (2023) \href{https://pypi.org/project/varfxi/}{\beamergotobutton{link}}
+    \end{itemize}
+
+  \item Training on volatility modeling and the econometrics of time series  
+    
+  \item Training on programming with Python
+        
+  \end{wideenumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Objectives}
+\begin{wideitemize}
+  \item Our objective is to be \textbf{as helpful as possible}
+  \item Very pragmatic, hands-on approach to use quantitative tools for central banks operations
+    \begin{itemize}
+    \item It goes beyond only FX interventions 
+    \item Can be used for market monitoring, modeling, forecasting, etc.
+    \item Build good foundations for your central bank and your career
+    \item See our other STI course on liquidity forecasting
+    \end{itemize}
+  \item The tools we use are at the \textbf{best industry standards among quants}
+    \begin{itemize}
+    \item \textbf{Python}, the leading \textbf{free and open-source} programming language for data science and modelization (among other uses)
+    \item \textbf{Jupyter notebooks and book} for full reproducibilty and easy deployment
+    \item We \textbf{deploy our package on pypi}, for easy maintenance and update
+    \item \textbf{Course website} deployed with Github workflow: \href{https://github.com/amineraboun/STI_FX_Intervention}{\beamergotobutton{Link}}
+    \end{itemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Team}
+  \begin{wideitemize}
+  \item \textbf{Romain Lafarguette, Ph.D.}: currently buy-side quant at ADIA (the sovereign wealth fund of Abu Dhabi) Q team
+    \begin{itemize}
+    \item Former IMF expert and ECB market operations expert (10 years)
+    \item Missions to more than 25 countries, including as mission chief, modeling publications, teaching, etc.
+    \item Mission coverage includes China PBoC, Reserve Bank of India, Hong Kong Monetary Authorities, Israel, Peru, Morocco, Tunisia, Algeria, Bosnia, WAEMU, etc.  
+    \end{itemize}
+    
+  \item \textbf{Amine Rabound, Ph.D.}: buy-side quant at ADIA Q team
+    \begin{itemize}
+    \item Specialized on financial modeling and market microstructure
+    \item Author of articles and a \href{https://worldscientific.com/worldscibooks/10.1142/12731}{\beamergotobutton{book}} on financial economics and econometrics
+    \end{itemize}
+    
+  \item \textbf{Zhuohui Chen}: research analyst at the IMF, Monetary and Capital Markets department, central banks operation division.
+    \begin{itemize}
+    \item In charge of deploying quantitative tools to central banks, a dozen of countries missions (and more to come !)
+    \end{itemize}
+    
+  \end{wideitemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Organization}
+
+  \begin{wideitemize}
+    \item We have opted for a blend between \textbf{plenary sessions} and \textbf{workshops}
+    \item The workshops will provide the opportunity to gain and apply modeling and programming knowledge
+    \item The idea is really to help participants developing useful, ready-to-use skills for their tasks at their central bank
+    \item \textbf{Don't hesitate to ask questions}, \textbf{we are here to help}
+      \begin{itemize}
+      \item We will adjust the pace of the course depending on participants, please let us know
+      \end{itemize}
+  \end{wideitemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Program}
+  \begin{wideitemize}
+    \item \textbf{Monday}: Theory and country cases on FX interventions (morning), introduction to Python (afternoon, with workshop)
+    \item \textbf{Tuesday}: Fundamentals of statistics (theory and workshop), fundamentals of time-series econometrics (theory and workshop)
+    \item \textbf{Wednesday}: Fundamentals of volatility modeling (theory and workshop), forecasting evaluation 
+    \item \textbf{Tuesday}: Risk-based framework for FX interventions: theory and workshop with test on real countries data
+    \item \textbf{Friday}: Participants deployment of the codes, interpreation and reporting on their own country data
+  \end{wideitemize}
+  
+\end{frame}
+
+
+
+%% ---------------------------------------------------------------------------
+%% End document
+%% ---------------------------------------------------------------------------
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
