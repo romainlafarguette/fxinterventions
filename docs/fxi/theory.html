@@ -1,0 +1,1340 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Theory of FX Interventions &#8212; FX Interventions &amp; Quant Modeling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/fxi/theory';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="International Practices" href="practice.html" />
+    <link rel="prev" title="IMF - STI: Risk-Based Framework for FX Intervention" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="FX Interventions & Quant Modeling - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="FX Interventions & Quant Modeling - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    IMF - STI: Risk-Based Framework for FX Intervention
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foreign Exchange Interventions</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Theory of FX Interventions</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="practice.html">International Practices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">VaR FXI Python Package</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IMF-MODEL/VaR-FX%20Interventions.html">Foreign Exchange Intervention Rules for Central Banks: A Risk-Based Framework</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Key Statistical Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Key-Statistical-Concepts/Lecture-content.html">Statistical Analysis with Python</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Key-Statistical-Concepts/workshop/01-random-variables.html">01- Ramdom Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Key-Statistical-Concepts/workshop/02-sampling.html">02-Statistical Link Between Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Key-Statistical-Concepts/workshop/03-Advanced.html">03- Statistics Techniques</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Time Series Econometrics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Time-Series-Analysis/theory.html">Time series Econometrics (Lecture Notes)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Time-Series-Analysis/Lecture-content.html">Time Series Econometrics With Python</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/01-%20ACF%20vs%20PACF.html">1: ACF vs PACF</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/02-%20Augmented%20Dickey-Fuller%20Test.html">2: Augmented Dickey-Fuller Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/03-%20STL%20Decomposition.html">3: Seasonal-Trend Decomposition using LOESS (STL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/04-%20Time%20Series%20Data%20Preprocessing.html">4: Read the Data</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/05-%20MA%20Model.html">5: Generate Some Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/06-%20AR%20Model.html">6: AR Model</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/07-%20Model%20Selection.html">7: Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/08-%20ARMA%20Model.html">8: ARMa Model</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/09-%20SARIMA%20Model.html">9: SARIMA Model</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/10-%20Undo%20Stationary%20Transformations.html">10: Undo Stationarity Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/11-%20Anomaly%20Detection.html">11: Anomaly Detection</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/12-%20Granger%20Causality.html">12: Granger Causality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Time-Series-Analysis/workshop/13%20-%20VAR%20Model.html">13: VAR Model</a></li>
+
+
+
+
+
+
+
+
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Volatility Modelling</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Volatility-Modelling/volatility_theory.html">Advanced Volatility Modeling (Lecture Notes)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Volatility-Modelling/Lecture-content.html">Advanced Volatilty Modelling with Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Volatility-Modelling/workshop/01-Introduction%20to%20arch%20package.html">01- Usage of the ARCH package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Volatility-Modelling/workshop/02-Volatility%20Modeling%20synthetic%20data.html">02- Volatility prediction: Simulated Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Volatility-Modelling/workshop/03-GARCH%20Stock%20Modeling.html">03- Volatility Modleing S&amp;P 500 Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Volatility-Modelling/workshop/04-Conditional%20Value%20at%20Risk.html">04- Conditional Value at Risk</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Volatility-Modelling/workshop/05-univariate_forecasting_with_exogenous_variables.html">05- Forecasting with Exogenous Regressors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Volatility-Modelling/workshop/univariate_volatility_modeling.html">05-Volatility Modeling (cont.)</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Python-Introduction/Lecture-content.html">General Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/02%20-%20Variables_and_Functions.html">2: Python Basics - Variables and Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/03%20-%20Control%20Structures.html">3 : Control Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/04%20-%20Data%20Structure%20%28Lists%20and%20Tuples%29.html">4: Data structure (Lists and Tuples)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/05%20-%20Dictionaries.html">5: Dictionaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/06%20-%20List%20Comprehension.html">6: List Comprehension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/07%20-%20Built-in%20Functions.html">7: Built-in Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/08%20-%20Basic%20Python%20Modules.html">8: Basic Python Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/09%20-%20Object%20Oriented%20Programming.html">9: Object Oriented Programming with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/10%20-%20Numpy%20%28Intro%29.html">10: Numpy Tableau ndarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/11%20-%20Numpy%20_%20Indexing%2C%20Slicing%2C%20Boolean%20Indexing.html">11: Numpy - Slicing and Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/12%20-%20Numpy%20Maths%20and%20Statists.html">12: Numpy - Mathematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/13%20-%20Numpy%20Broadcasting.html">13: Numpy and Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/14%20-%20Matplotlib%20%28Intro%29.html">14: Matplotlib - Graphiques de Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/15%20-%20Matplotlib%20Top%20Graphiques.html">15: Matplotlib Top Graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/16%20-%20Scipy.html">16: Machine Learning with Scipy</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/17%20-%20Pandas%20%28Intro%29.html">17: Pandas (the Basics) and Titanic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/18%20-%20Pandas%20and%20Time%20series.html">18: Pandas and Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Python-Introduction/workshop/19%20-%20Seaborn.html">19: Data Visualisation with Seaborn</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utils</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Miscelaneous tools</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/romainlafarguette/fxinterventions" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/romainlafarguette/fxinterventions/issues/new?title=Issue%20on%20page%20%2Fdocs/fxi/theory.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/fxi/theory.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Theory of FX Interventions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Theory of FX Interventions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-trilemma">The Trilemma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-and-intermediate-objectives">Goals and Intermediate Objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-goals-motivating-interventions-on-the-fx-market">Main Goals Motivating Interventions on the FX market</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-intermediate-objectives">FX Intermediate Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risks-associated-with-fx-interventions">Risks Associated with FX Interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sterilization-of-fx-interventions">Sterilization of FX Interventions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typology">Typology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#can-all-central-banks-sterilize">Can All Central Banks Sterilize?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#costs-of-fx-interventions">Costs of FX Interventions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transmission-channels-of-fx-interventions">Transmission Channels of FX Interventions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signaling-channel">Signaling channel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-portfolio-rebalancing-channel">The portfolio rebalancing channel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fxi-implementation">FXI Implementation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fxi-timing">FXI Timing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fxi-rule-vs-discretion">FXI: Rule vs Discretion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-intervention-size-and-frequency">FX Intervention Size and Frequency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#targeted-vs-open-market-interventions">Targeted vs Open-Market Interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-instruments">FX Instruments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profitability-of-fx-interventions">Profitability of FX interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-around-fx-interventions">Communication around FX interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-intervention-effectiveness">FX Intervention Effectiveness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-interventions-and-capital-flows-management">FX Interventions and Capital Flows Management</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><a class="reference download internal" download="" href="../../_downloads/b6396ae00dac43594a3694a85a36d6ea/fxi_theory_practice.pdf"><span class="xref download myst">Full slides of the course</span></a></p>
+<!-- https://cheatography.com/xaon/cheat-sheets/emacs-markdown-mode/  -->
+<section class="tex2jax_ignore mathjax_ignore" id="theory-of-fx-interventions">
+<h1>Theory of FX Interventions<a class="headerlink" href="#theory-of-fx-interventions" title="Link to this heading">#</a></h1>
+<section id="the-trilemma">
+<h2>The Trilemma<a class="headerlink" href="#the-trilemma" title="Link to this heading">#</a></h2>
+<div class="warning admonition">
+<p class="admonition-title">The Mundell Trilemma</p>
+<p>The choice of the monetary framework and the goals of the central bank is constrained by the <strong>Mundell Trilemma</strong>, that states that countries can only achieve two out of the three objectives:</p>
+<ul class="simple">
+<li><p>Independent monetary policy: for instance, determining the interest rate to achieve domestic objectives, such as controlling inflation</p></li>
+<li><p>Open capital account: capital flows can freely move in and out the country</p></li>
+<li><p>Fixed exchange rate: the local currency is pegged to an anchor, for instance, the US dollar or the</p></li>
+</ul>
+</div>
+<p>Most advanced economies have abandonned the fixed exchange rate objective after the collapse of the Bretton Woods system, and are therefore pursuing independent monetary objectives (inflation targeting or, in the past, money-base targeting) under an open capital account.</p>
+<p>Diagram of the Mundell Trilemma with some countries illustration
+<img alt="Trilemma" src="../../_images/Trilemma.PNG" />
+<em>Source: Lafarguette</em></p>
+<p>Typically, countries trying to “round the corners of the trilemma”, i.e. trying to achieve the three objectives simultaneously, will at a point face severe exchange rate/capital flows pressures if the fundamentals are not aligned. After burning their FX reserves to maintain a misaligned exchange rate level with open capital flows and independent monetary policy, countries will ultimately have to give up either open capital account or the peg.</p>
+<p>This situation occurred in South-East Asia at the end of the 1990s (the 1997 Asian Financial Crisis). At the time:</p>
+<ul class="simple">
+<li><p>Most East-Asia countries in the 90s were <em>de facto</em> pegged to the USD</p></li>
+<li><p>Free mobility of capital (except in China)</p></li>
+<li><p>Independent monetary policy with a high domestic interest rate to attract foreign investors</p>
+<ul>
+<li><p>Countries were growing fast, foreign capital supplemented the lack of domestic savings</p></li>
+<li><p>FX peg + high interest rate were generating a positive carry without FX risk for investors. Consequently, it fueled <strong>hot money</strong></p></li>
+<li><p>Huge credit boom: at the time, South-East Asia was receiving <strong>half</strong> of the world total capital flows to EM by the time</p></li>
+</ul>
+</li>
+</ul>
+<p>These factors generated a <strong>credit bubble</strong> on over-leveraged economies, fueled by hot money</p>
+<p>Hence, when the bubble bursted (first in Thailand), investors ran, triggering capital outflows and weakening currencies</p>
+<ul class="simple">
+<li><p>Due to insufficient foreign reserves, countries were forced to devaluate, as FX interventions were not possible</p></li>
+<li><p>The huge FX mismatch on banks and corporates balance sheets started a crisis, which was amplified by the interest rate hikes motivated to fight depreciation…</p></li>
+</ul>
+<p>Exchange rate dynamics of South-East Asian Countries during the 1997 Asian Financial Crisis
+<img alt="AFC FX Crash" src="../../_images/afc_fx_crash.PNG" />
+<em>Source: Nikkei Asia and Refinitiv</em></p>
+<p>Evolution of the GDP of South-East Asian Countries during the 1997 Asian Financial Crisis
+<img alt="AFC GDP Crash" src="../../_images/afc_gdp_crash.png" />
+<em>Source: Mark Roser, Our World in Data</em></p>
+</section>
+<section id="goals-and-intermediate-objectives">
+<h2>Goals and Intermediate Objectives<a class="headerlink" href="#goals-and-intermediate-objectives" title="Link to this heading">#</a></h2>
+<div class="definition admonition">
+<p class="admonition-title">Definition: FX Interventions</p>
+<p>Any official sale or purchase of foreign assets against domestic assets <strong>in the foreign exchange market</strong> (onshore or offshore)</p>
+</div>
+<ul class="simple">
+<li><p>FX Interventions are usually carried-out by the central bank, but can sometimes be under the responsibility of the Ministry of Finances, such as in Japan (<a class="reference external" href="https://www.mof.go.jp/english/policy/international_policy/reference/feio/index.html">link</a>)</p></li>
+</ul>
+<p>Typically, the central banking literature distinguishes between goals and objectives:</p>
+<div class="important admonition">
+<p class="admonition-title">Central Bank Goal</p>
+<p>Ultimate purpose of the FX intervention. Should be consistent with the monetary framework of the central bank</p>
+</div>
+<p><em>For instance, a FX intervention goal for the central bank could be about preserving financial stability</em></p>
+<div class="important admonition">
+<p class="admonition-title">Intermediate Objectives</p>
+<p>How to reach the goals via the central bank’s operational framework</p>
+</div>
+<p><em>For instance, mitigating FX daily volatility via open-market interventions</em></p>
+<section id="main-goals-motivating-interventions-on-the-fx-market">
+<h3>Main Goals Motivating Interventions on the FX market<a class="headerlink" href="#main-goals-motivating-interventions-on-the-fx-market" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Price stability</strong></p>
+<ul>
+<li><p>When large exchange rate movements pass-through inflation, generating temporary shocks</p></li>
+</ul>
+</li>
+<li><p><strong>Financial stability</strong>
+- Calm “disorderly market conditions” (see <a class="reference external" href="https://www.imf.org/-/media/Files/Publications/covid19-special-notes/en-special-series-on-covid-19-central-bank-support-for-foreign-exchange-markets.ashx">link</a>) for a discussion on how to assess disorderly market conditions)
+- Smooth capital flows and credit spillovers (impact on carry trade and excess returns)
+- Alleviate FX funding shortage
+- Reduce FX speculation</p></li>
+<li><p><strong>Terms of trade</strong></p>
+<ul>
+<li><p>Support external competitiveness (especially during USD weakening phases)</p></li>
+<li><p>Smooth commodity prices fluctuations</p></li>
+</ul>
+</li>
+<li><p><strong>Building/managing FX reserves</strong></p>
+<ul>
+<li><p><em>In principle, without market impact</em></p></li>
+</ul>
+</li>
+<li><p><strong>Support fellow central banks in their exchange rate operations</strong></p></li>
+</ul>
+<p>BIS Survey (2021) on Central Banks FX Interventions Goals
+<img alt="BIS Survey Goals" src="../../_images/bis_fxi_goals.PNG" />
+<em>Source: BIS 2021 <a class="reference external" href="https://www.bis.org/publ/bppdf/bispap104b_rh.pdf">Link</a></em></p>
+<div class="warning admonition">
+<p class="admonition-title">FXI should be consistent with the central bank’s monetary framework</p>
+<p>FX interventions should not contradict the central bank mandate, else there is a risk of policy inconsistency (cf. the Mundell Trilemma) that would jeopardize monetary efficiency and central bank credibility</p>
+</div>
+<p><strong>Floating exchange rate regimes</strong> (for instance, with inflation targeting) should use FX interventions for:
+* Financial Stability
+* For instance, when domestic agents face severe currency mismatch on their balance sheet, FX volatility is a financial stability threat</p>
+<ul class="simple">
+<li><p>Preservation of the monetary objectives</p>
+<ul>
+<li><p>For instance, when the pass-through of large - and temporary - exchange rate movements threaten the inflation target</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Hard-peg and currency board</strong> regimes typically intervene on the FX market to defend the peg, usually via FX windows, at a fixed exchange rate</p>
+<p><strong>Crawling and soft-peg</strong> conduct infrequent FX interventions when the exchange rate deviates outside of the central bank tolerance</p>
+<ul class="simple">
+<li><p>However, there is a risk of a conflict between <em>de-jure</em> and <em>de-facto monetary</em> objectives</p></li>
+</ul>
+</section>
+<section id="fx-intermediate-objectives">
+<h3>FX Intermediate Objectives<a class="headerlink" href="#fx-intermediate-objectives" title="Link to this heading">#</a></h3>
+<p>The literature (see the BIS below) and international practices typically identify 5 main intermediate objectives:</p>
+<ul class="simple">
+<li><p><strong>Limit exchange rate volatility</strong></p>
+<ul>
+<li><p>Even if the main goal of the central bank is to maintain price stability, limiting FX volatility is often important. FX volatility affects the price-setting behavior of firms: it causes average imported inflation to rise</p></li>
+<li><p>Excessive FX volatility can also derail the transmission of monetary policy</p></li>
+</ul>
+</li>
+<li><p><strong>Provide liquidity</strong> to thin market</p></li>
+<li><p><strong>Smooth the path</strong> of the exchange rate</p></li>
+<li><p>Limit FX pressure caused by international investors</p></li>
+<li><p>Influence the level of the exchange rate (if the main goal of the central bank is indeed an exchange rate nominal anchor)</p></li>
+</ul>
+<p>BIS Survey (2021) on Central Banks FX Interventions Intermediate Objectives
+<img alt="BIS Survey Objectives" src="../../_images/bis_intermediate_objectives.PNG" />
+<em>Source: BIS 2021 <a class="reference external" href="https://www.bis.org/publ/bppdf/bispap104b_rh.pdf">Link</a></em></p>
+<div class="hint admonition">
+<p class="admonition-title">FX interventions consistent with floating exchange rate regimes can typically be designed to smooth exchange rate shocks, either:</p>
+<ul class="simple">
+<li><p><strong>Permanent shock</strong>: smoothing the exchange rate path dynamic to reach the new equilibrium</p></li>
+<li><p><strong>Temporary shock</strong>: smooth the temporary impact while allowing the economy to quickly return back to the previous state</p></li>
+</ul>
+</div>
+<p>Example of FX Intervention to Smooth a Permanent Shock
+<img alt="Permanent shock" src="../../_images/peru_permanent_shock.PNG" />
+<em>Source: IMF and Central Bank of Peru (2018) <a class="reference external" href="https://www.elibrary.imf.org/display/book/9781484375686/ch012.xml">Link</a></em></p>
+<p>Example of FX Intervention to Smooth a Transitory Shock
+<img alt="Temporary shock" src="../../_images/peru_transitory_shock.PNG" />
+<em>Source: IMF and Central Bank of Peru (2018) <a class="reference external" href="https://www.elibrary.imf.org/display/book/9781484375686/ch012.xml">Link</a></em></p>
+</section>
+</section>
+<section id="risks-associated-with-fx-interventions">
+<h2>Risks Associated with FX Interventions<a class="headerlink" href="#risks-associated-with-fx-interventions" title="Link to this heading">#</a></h2>
+<p>Conducting FX interventions entail risks that central banks should be able to mitigate:</p>
+<ul class="simple">
+<li><p><strong>Moral hazard</strong> and encouragement of greater risk-taking by market participants</p></li>
+<li><p><strong>Negative effects on market development</strong> :e.g. hampering the development of the derivative markets by removing the need of currency hedge</p>
+<ul>
+<li><p>… which in turn increases the need for future FX interventions by the central bank in the future</p></li>
+</ul>
+</li>
+<li><p>Potential difficulties in balancing the <strong>orderly functioning of local FX markets while maintaining openness to foreign investors</strong></p></li>
+<li><p>Possible inconsistencies between monetary policy and FX interventions, with complex interactions that are difficult to understand and communicate, which overall increases <strong>policy uncertainty</strong></p></li>
+</ul>
+<p><em>Note that the risk-based FX intervention rule developped by <a class="reference external" href="https://www.imf.org/en/Publications/WP/Issues/2021/02/12/Foreign-Exchange-Intervention-Rules-for-Central-Banks-A-Risk-based-Framework-50081">Lafarguette and Veyrune (2021)</a> is designed to address some of these issues</em></p>
+</section>
+<section id="sterilization-of-fx-interventions">
+<h2>Sterilization of FX Interventions<a class="headerlink" href="#sterilization-of-fx-interventions" title="Link to this heading">#</a></h2>
+<section id="typology">
+<h3>Typology<a class="headerlink" href="#typology" title="Link to this heading">#</a></h3>
+<div class="definition admonition">
+<p class="admonition-title">Non-Sterilized Interventions</p>
+<ul class="simple">
+<li><p>Buy and sell foreign assets against banks’ reserves at the central bank</p></li>
+<li><p>Increase or decrease the monetary base, and therefore impact the monetary stance</p></li>
+</ul>
+</div>
+<div class="definition admonition">
+<p class="admonition-title">Sterilized Interventions</p>
+<ul class="simple">
+<li><p>Buy and sell foreign assets against banks’ reserves at the central bank</p></li>
+<li><p>Sterilize the intervention by either:</p>
+<ul>
+<li><p>selling or purchasing home-currency assets</p></li>
+<li><p>or issuing of sterilization instruments</p></li>
+</ul>
+</li>
+<li><p>No impact on the monetary stance</p></li>
+</ul>
+</div>
+<p>Non-sterilized interventions imply a change of the monetary stance and can directly conflict with the monetary objectives.</p>
+<p>Sterilized interventions should be preferred, as they allow the central bank to isolate their impact to the FX market only. Typically, sterilization is conducted by absorbing liquidity (when buying FX reserves) or by injecting liquidity (when selling FX reserves), so that the volume of banks’ reserves at the central bank doesn’t change.</p>
+<p>To sterilize, the central bank has to rely on specific operations and instruments:
+- By <strong>buying or selling domestic assets</strong> (usually, domestic sovereign bonds), to offset the impact of the change in foreign reserves (net foreign assets)
+- By <strong>issuing central bank securities</strong> (for instance, sterilization bills or certificates of deposits) to absorb domestic liquidity from banks when buying foreign reserves
+- By <strong>tilting the required reserves ratio (RRR)</strong>, to inject or absorb liquidity. However, it is preferable to keep the RRR stable over time, and this instrument should be use to accomodate structural changes in the liquidity position</p>
+<p>Central Bank Analytical Balance Sheet
+<img alt="CB Balance Sheet" src="../../_images/central_bank_balance_sheet.PNG" />
+<em>Source: Lafarguette</em></p>
+</section>
+<section id="can-all-central-banks-sterilize">
+<h3>Can All Central Banks Sterilize?<a class="headerlink" href="#can-all-central-banks-sterilize" title="Link to this heading">#</a></h3>
+<p>In practice, it may be difficult to fully offset the effects of FX interventions as:</p>
+<ul class="simple">
+<li><p>Countries with under-developed financial markets might not offer enough assets for the central bank to sterilize</p></li>
+<li><p>There are second-round effects that dampen the impact of sterilization</p>
+<ul>
+<li><p><em>For instance: after FXI (buying), sterilization via domestic assets sale, attracts capital inflows, the CB will have to purchase FX further, etc.</em></p></li>
+</ul>
+</li>
+</ul>
+<p>One potential solution is to use <strong>FX derivatives</strong></p>
+<ul class="simple">
+<li><p>For instance, some East-Asian central banks have been using FX swaps to sterilize their interventions</p>
+<ul>
+<li><p>Purchasing FX on the spot</p></li>
+<li><p>Swap by selling FX spot, unwinding by buying FX in the future</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="costs-of-fx-interventions">
+<h3>Costs of FX Interventions<a class="headerlink" href="#costs-of-fx-interventions" title="Link to this heading">#</a></h3>
+<p>Central Bank Analytical Balance Sheet with Remuneration and Costs
+<img alt="CB Balance Sheet Rates" src="../../_images/central_bank_balance_sheet_rates.PNG" />
+<em>Source: Lafarguette</em></p>
+<div class="important admonition">
+<p class="admonition-title">Costs of FX Interventions</p>
+<ul class="simple">
+<li><p>FX Interventions entail fiscal and valuation costs</p></li>
+</ul>
+</div>
+<ul class="simple">
+<li><p><strong>Fiscal costs</strong></p>
+<ul>
+<li><p>Depends on the interest rate differential between domestic and foreign assets, in particular the returns of FX reserves</p></li>
+<li><p>Typically, the domestic interest rate is often higher than the foreign interest rate (US Treasuries for instance): the remuneration of the foreign reserves is below the cost of the sterilization instruments</p></li>
+<li><p>This is the cost of the conduct of monetary policy. It is crucial to be consistent, even if it implies a cost for the central bank</p>
+<ul>
+<li><p>Note that some central banks try to pass the costs to the banking sector, either via the required reserves (FX or domestic, high ratio with below-market remuneration) or forced-holdings of sterilization assets remunerated below market rate</p></li>
+<li><p>This is a form of financial repression, and is not advised…</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Valuation costs</strong></p>
+<ul>
+<li><p>Foreign reserves expose the central bank to foreign exchange risk</p></li>
+<li><p>If the foreign currency depreciates, the valuation losses on the FX reserves will reduce the central bank equity</p>
+<ul>
+<li><p>For instance, the Swiss National Bank (SNB) had to intervene to prevent an appreciation of the Franc that ended up FX reserves representing 130% of GDP, 12-times increase since 2012</p></li>
+<li><p>Valuation losses in 2022 of 95 bn CHF (105 bn USD), or 15 % of GDP… (were absorbed by SNB very large equity buffer)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>PBOC Key Interest Rates on the Balance Sheet
+<img alt="PBoC Interest Rates" src="../../_images/fx_sterilization_cost_china.PNG" />
+<em>Source: CEIC</em></p>
+<p>PBOC Foreign Reserves
+<img alt="PBoC Foreign Reserves" src="../../_images/pboc_fx_reserves.PNG" />
+<em>Source: CEIC</em></p>
+<p>Franc Suisse against Euro (Down Means CHF Appreciation)
+<img alt="CHF" src="../../_images/chfeur.jpg" />
+<em>Source: Bloomberg</em></p>
+<p>Franc Suisse against Euro (Down Means CHF Appreciation)
+<img alt="SNB Losses" src="../../_images/snb_losses.png" />
+<em>Source: Bloomberg</em></p>
+</section>
+</section>
+<section id="transmission-channels-of-fx-interventions">
+<h2>Transmission Channels of FX Interventions<a class="headerlink" href="#transmission-channels-of-fx-interventions" title="Link to this heading">#</a></h2>
+<p>FX interventions influence the exchange rate through two main channels:</p>
+<ul class="simple">
+<li><p><strong>Signaling channel</strong></p>
+<ul>
+<li><p>Signal the future monetary policy stance</p></li>
+<li><p>Signal future exchange rate and FX interventions</p></li>
+</ul>
+</li>
+<li><p><strong>Portfolio and risk-rebalancing channel</strong></p></li>
+</ul>
+<section id="signaling-channel">
+<h3>Signaling channel<a class="headerlink" href="#signaling-channel" title="Link to this heading">#</a></h3>
+<p>FX Interventions provide investors with “information” about the central bank view of the appropriate exchange rate. They also signal future monetary policy intentions.</p>
+<p>The signal sent by the central bank when conducting FX interventions often plays an important role for steering market participants expectations.</p>
+<p>Despite the signaling effect, some central banks prefer to keep their interventions secret, even ex-post, because:</p>
+<ul class="simple">
+<li><p>Fear of losing credibility if the intervention is unsuccessful</p></li>
+<li><p>“Wants to keep control”, tradition of secrecy</p></li>
+<li><p>Shield from political repercussions</p></li>
+</ul>
+<p><em>Empirical evidence tend to suggest that the signaling effect indeed plays an important role, and that secret FX interventions should, in general, be avoided (see later for a discussion)</em></p>
+</section>
+<section id="the-portfolio-rebalancing-channel">
+<h3>The portfolio rebalancing channel<a class="headerlink" href="#the-portfolio-rebalancing-channel" title="Link to this heading">#</a></h3>
+<p>The portfolio rebalancing channel occurs when the central bank manages to shift the relative supply of foreign versus domestic assets on the market.</p>
+<ul class="simple">
+<li><p>Because the supply changes, the expected FX returns and FX level is changing as well.</p>
+<ul>
+<li><p>For example, after a sterilized FXI selling-side, the central bank increases the supply of foreign assets, depreciating the foreign currency</p></li>
+</ul>
+</li>
+</ul>
+<p>Sterilized FX interventions also alter the <strong>risk characteristics</strong> of foreign/domestic assets</p>
+<ul class="simple">
+<li><p>Domestic investors are exposed to FX risk when holding foreign assets</p></li>
+<li><p>Sterilized interventions influence the equilibrium exchange rate via a change in the <strong>risk premia</strong></p></li>
+</ul>
+<p>The portfolio rebalancing channel is maximized when:</p>
+<ul class="simple">
+<li><p>Investors <strong>diversify their holdings</strong> domestic/foreign as a function of <strong>expected returns and variance of returns</strong></p></li>
+<li><p><strong>Foreign and domestic assets are imperfect substitutes</strong>: the uncovered interest parity doesn’t hold</p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Signaling</p></th>
+<th class="head"><p>Portfolio Rebalancing</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Assumption</p></td>
+<td><p>The central bank is credible</p></td>
+<td><p>Assets are imperfect substitutes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Channel</p></td>
+<td><p>Market Expectations</p></td>
+<td><p>Relative supply and returns, risk premium</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="fxi-implementation">
+<h1>FXI Implementation<a class="headerlink" href="#fxi-implementation" title="Link to this heading">#</a></h1>
+<div class="caution admonition">
+<p class="admonition-title">Challenges</p>
+<p>Countries, and in particular EMEs, face implementations issues when framing their FX interventions strategy</p>
+</div>
+<p>Typically, the common challenges faced by central banks are:</p>
+<ul class="simple">
+<li><p>How to decide about the appropriate <strong>timing</strong> of FX interventions?</p></li>
+<li><p>Should interventions be <strong>discretionary or follow rules</strong>?</p>
+<ul>
+<li><p>When using rules, what kind of rules?</p></li>
+</ul>
+</li>
+<li><p>What is the <strong>optimal FXI size</strong> to maximize efficiency while preserving the sustainability of the central banks’ foreign reserves?</p></li>
+<li><p><strong>Instruments</strong>: intervening through spot or derivatives, or both?</p></li>
+<li><p>Should CBs provide targeted FX provision to specific banks or engage in <strong>open-market FX interventions</strong>?</p></li>
+<li><p>Under what conditions is it appropriate to deploy intervention and capital controls jointly?</p></li>
+</ul>
+<section id="fxi-timing">
+<h2>FXI Timing<a class="headerlink" href="#fxi-timing" title="Link to this heading">#</a></h2>
+<p>Deciding on the right FXI timing is critical and entail significant risks:</p>
+<ul class="simple">
+<li><p>The central bank doesn’t want to intervene too often, at the risk to create market distortions, lose credibility and exhaust FX reserves</p></li>
+<li><p>Still, need to intervene often enough to preserve financial stability and mitigate volatility, for instance, when domestic agents are unsufficiently hedged</p></li>
+<li><p>When is the right time for intervening? Monitoring market conditions, spotting market dysfunctions, exchanging information with market participants is often critical</p></li>
+<li><p>Some simple rules with fixed thresholds (e.g. intervening when the daily variation exceeds +/- 2%) often guidance, at the risk of creating speculation</p>
+<ul>
+<li><p><a class="reference external" href="https://www.imf.org/en/Publications/WP/Issues/2021/02/12/Foreign-Exchange-Intervention-Rules-for-Central-Banks-A-Risk-based-Framework-50081">Lafarguette and Veyrune (2021)</a> designed a rule to decide on the optimal triggers for FX interventions based on risk level</p></li>
+<li><p>Even under a discretionary framework, quantitative-based metrics can serve as a useful guide</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="fxi-rule-vs-discretion">
+<h2>FXI: Rule vs Discretion<a class="headerlink" href="#fxi-rule-vs-discretion" title="Link to this heading">#</a></h2>
+<p>Rule vs. discretion is an old debate in the academic literature (see <a class="reference external" href="https://www.ssc.wisc.edu/~mchinn/Popper_FXI_apr22.pdf">Popper 2022</a> for a review)</p>
+<p>Often, central banks prefer to operate via <strong>un-disclosed, discretionary interventions</strong></p>
+<ul class="simple">
+<li><p>Idea to “surprise the market”</p></li>
+<li><p>No commitment for intervening, given the central bank some perception that it controls better its level of foreign reserves</p></li>
+<li><p>In general the empirical evidence suggest that the effect of the “surprises” triggered by discretionary FX interventions fades very fast, within hours</p></li>
+<li><p>“Surprising the market” can be detrimental, especially when liquidity is scarce and the volatility already high</p></li>
+</ul>
+<p>On the contrary, some central banks use <strong>rule-based systems</strong> to decide on their FX interventions timing:</p>
+<ul class="simple">
+<li><p>Indicates no explicit intention to target an exchange rate level</p></li>
+<li><p>Aligned with the monetary objectives (if the rule is correctly defined)</p></li>
+<li><p>Maximize the signaling channel, help agents forming their expectations</p></li>
+<li><p>Helps the central bank to shield-off political pressures</p></li>
+<li><p>Should be properly designed to avoid speculative behavior</p></li>
+</ul>
+<p>A few countries have implemented rules-based interventions:</p>
+<ul class="simple">
+<li><p>Mexico, Chile and Columbia: these countries have implemented rules-based programs of pre-announced daily purchases/sales of FX</p></li>
+<li><p>Czech Republic, Swizterland and Russia (early 2010s) used to have “automatic interventions” on electronic trading platforms</p></li>
+</ul>
+<p><a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1111/jmcb.12028">Academic evidence, Dominguez et al. 2013</a> from the Czech National Bank Interventions suggest that rule-based interventions were more effective in sterring the exchange rate than discretionary interventions</p>
+<p>In practice, assessing central banks’ rules vs. discretion in practice is difficult, because:</p>
+<ul class="simple">
+<li><p>Central banks often don’t follow a rigid rule: it is therefore difficult to quantify their objectives and rationales</p></li>
+<li><p>Policies are often <strong>episodic</strong>: interventions can be frequent during some periods and much less in other periods</p></li>
+<li><p>The FX interventions are largely geared towards “leaning against the wind”, to react against deviations from target</p></li>
+</ul>
+<p>The BIS conducts regular surveys on central banks practices in FX interventions and ask about rules vs discretion practice.
+Out of the 21 central banks surveyed, only one thir of them used rules for intervening on the FX market.
+<img alt="CB Rules vs Discretion" src="../../_images/bis_discretion_rule.PNG" />
+<em>Source: <a class="reference external" href="https://www.bis.org/publ/mc_insights_fxinterventions.pdf">BIS 2021</a></em></p>
+</section>
+<section id="fx-intervention-size-and-frequency">
+<h2>FX Intervention Size and Frequency<a class="headerlink" href="#fx-intervention-size-and-frequency" title="Link to this heading">#</a></h2>
+<p>To the best of our knowledge, there is no theoretical model providing guidance on the  optimal FX intervention  amount to buy or  sell on the  market, either during one intervention or a day (if multiple interventions per day).</p>
+<div class="tip admonition">
+<p class="admonition-title">General guidance</p>
+<p>The general guidance is to intervene infrequently, with relatively large amounts, measured as share of the daily market turnover. The purpose is to:</p>
+<ul class="simple">
+<li><p>Maximize market impact</p></li>
+<li><p>Maximize the signaling effect</p></li>
+<li><p>Gain credibility</p></li>
+</ul>
+</div>
+<p>Based on international practices, cumulated FX interventions during a day represent between 15% and 20% of daily market turnover, with some central banks intervening more than 50% of the daily market turnover</p>
+<ul class="simple">
+<li><p>This amount represent between 0.3% and 0.8% of the monthly FX reserves</p></li>
+</ul>
+<p>For regular interveners, the frequency of interventions during “normal years” (excluding for instance COVID year) is around 10 to 15 days per year</p>
+<ul class="simple">
+<li><p>But can climb up to 80 business days per year in 2020!</p></li>
+</ul>
+<p>Results on the 2021 BIS Survey on FX intervention size and frequency
+<img alt="FX Intervention Size and Frequency" src="../../_images/bis_fxi_size.PNG" />
+<em>Source: <a class="reference external" href="https://www.bis.org/publ/mc_insights_fxinterventions.pdf">BIS 2021</a></em></p>
+<div class="urgent admonition">
+<p class="admonition-title">Critical points to consider</p>
+<p>To decide about the specific amount for a given intervention, it is critical to consider:</p>
+<ul class="simple">
+<li><p>The level of the foreign reserves of the central bank, and in particular, its buffer compared to the adequate reserves level (for instance, using the <a class="reference external" href="https://www.imf.org/external/datamapper/datasets/ARA">IMF ARA metric</a> or any other metric)</p></li>
+<li><p>Assess the liquidity conditions and the FX market impact</p></li>
+<li><p>The amount is usually calibrated as percent of the daily FX market turnover</p></li>
+</ul>
+</div>
+</section>
+<section id="targeted-vs-open-market-interventions">
+<h2>Targeted vs Open-Market Interventions<a class="headerlink" href="#targeted-vs-open-market-interventions" title="Link to this heading">#</a></h2>
+<p>In general, FX interventions should be conducted via open-market interventions, in order to:</p>
+<ul class="simple">
+<li><p>Reduce market distortions</p></li>
+<li><p>Maximize the signaling effect, transparent operations</p></li>
+<li><p>Create an level-playing field for market participants to avoid market discrimination</p></li>
+<li><p>Reduce political pressure and interferences to supply a given participant with FX</p></li>
+</ul>
+<p>However, even if FX interventions are not targeted, banks take-up is unlikely to be uniform (and this is true for FX facilities too).</p>
+<p>In some very specific circumstances, some systemically important FX players (banks, large importers/exporters) may require targeted interventions, particularly when the volumes are so large that they would destabilize the market. This is the case, for instance, with large commodities exporters.</p>
+</section>
+<section id="fx-instruments">
+<h2>FX Instruments<a class="headerlink" href="#fx-instruments" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Instruments for FX interventions</p>
+<p>Typically, central banks use a set of instruments to conduct their interventions, including:</p>
+<ul class="simple">
+<li><p>FX spot</p></li>
+<li><p>FX forward and FX non-deliverable forwards (NDF)</p></li>
+<li><p>FX swaps</p></li>
+<li><p>FX repos</p></li>
+<li><p>FX options</p></li>
+</ul>
+</div>
+<p>Deciding on whether to use spot or derivatives instruments should be based on the pros and cons of each instruments.</p>
+<p>Typically, spot interventions are:</p>
+<ul class="simple">
+<li><p>Standard intervention on the spot market</p></li>
+<li><p>Provides a direct impact on the exchange rate, and no arbitrage transmission needed</p></li>
+<li><p>Provide immediate FX provision to the market</p></li>
+<li><p>However, spot FXI are limited by the size of the foreign reserves (when selling)</p></li>
+<li><p>In some countries, the spot market might be less liquid than the derivative market</p></li>
+</ul>
+<p>Some central banks might prefer to use derivatives instead of spot FXI, because:</p>
+<ul class="simple">
+<li><p>Derivative FXI provide an hedge against FX risk</p></li>
+<li><p>Derivative FXI influence the liquidity on the derivative market, which in turn improves the spot/derivative market arbitrage</p></li>
+<li><p>Preserve FX reserves if the derivatives are settled in local currency, as in the case of NDF or non-deliverable swaps</p></li>
+</ul>
+<p>For instance, the BCB (Brazil) was using non-deliverables FX swaps which were:</p>
+<ul class="simple">
+<li><p>Settled in local currency and had no impact on foreign reserves</p></li>
+<li><p>Fills a market gap in longer-term derivatives instruments (serves as a risk management insurance)</p></li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">Intertemporal and risk considerations</p>
+<p>Using spot versus derivatives also entail <strong>intertemporal and risk considerations</strong>:</p>
+<ul class="simple">
+<li><p><strong>Spot FXI</strong>: provides immediate FX provision to the market</p></li>
+<li><p><strong>Forward FXI</strong>: transfer FX risk immediately</p></li>
+<li><p><strong>Option-based FIX</strong>: provides an insurance against FX risk, that may or may not be exercised</p></li>
+<li><p><strong>Repos and swap-based FXI</strong>: provide FX for the duration of the repo or swap, providing a hedge against maturity mismatches in FX</p></li>
+</ul>
+</div>
+<p>Advanced economies (AE) and emerging markets economies (EME) differ on how they implement FX interventions.</p>
+<p>In general, AEs tend to intervene exclusively in the spot market, and often, relatively infrequently, as they operate floating exchange rate regimes (at the exception of Switzerland in the early 2010s that maintained a floor on the CHF).</p>
+<p>However, many EMEs intervene in derivatives markets. For instance:</p>
+<ul class="simple">
+<li><p>The Bank of Thailand used forward market purchases to support the baht in 1997</p></li>
+<li><p>The Bank of Mexico sold put options on the USD to accumulate USD reserves in the 1990s</p></li>
+<li><p>Other Latin America countries in the 1990s also intervened via derivatives, such as Chile, Brazil, Peru</p></li>
+<li><p>More recently, a growing list of EMEs are still intervening on the derivatives market: Brazil, Colombia, India, Indonesia, Mexico, South-Africa, Thailand</p></li>
+</ul>
+<p>According to the 2021 BIS survey, the forward and swaps were the most used derivatives instruments by central banks for FX interventions, and around 40% of them were using derivatives frequently, and another third occasionally.</p>
+<p>Results on the 2021 BIS Survey on FX intervention instruments
+<img alt="FX Intervention Instruments" src="../../_images/bis_instruments.PNG" />
+<em>Source: <a class="reference external" href="https://www.bis.org/publ/mc_insights_fxinterventions.pdf">BIS 2021</a></em></p>
+</section>
+<section id="profitability-of-fx-interventions">
+<h2>Profitability of FX interventions<a class="headerlink" href="#profitability-of-fx-interventions" title="Link to this heading">#</a></h2>
+<p>Empirical evidence suggests that profits vary significantly according to the sample periodm but generally, FX intervention is profitable as:</p>
+<ul class="simple">
+<li><p>When selling, the central bank is providing FX liquidity at a time of stress, hence can sell expensive</p></li>
+<li><p>When buying, the central bank is absorbing FX liquidity when liquidity is ample, hence can buy cheap</p></li>
+</ul>
+<p><a class="reference external" href="https://www.imf.org/en/Publications/WP/Issues/2021/02/12/Foreign-Exchange-Intervention-Rules-for-Central-Banks-A-Risk-based-Framework-50081">Lafarguette and Veyrune 2021</a> show that, in the case of Mexico:</p>
+<ul class="simple">
+<li><p>Rules-based FX interventions are more profitable than discretionary rules</p></li>
+<li><p>Their risk-based intervention rule is the most profitable, as the central bank is buying/selling on the tails of the FX distribution.</p></li>
+</ul>
+</section>
+<section id="communication-around-fx-interventions">
+<h2>Communication around FX interventions<a class="headerlink" href="#communication-around-fx-interventions" title="Link to this heading">#</a></h2>
+<p>There is little consensus among central banks, in particular regarding ex-post communication (data, amounts, etc.).</p>
+<div class="caution admonition">
+<p class="admonition-title">Communication and transparency</p>
+<p><strong>Signaling</strong> is important transmission channel of foreign exchange interventions and can only be achieved with communication and transparency</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Pitfalls</p>
+<p>“Surprising the market” via undisclosed FX interventions can be detrimental, especially when liquidity is scarce and the volatility is already high</p>
+</div>
+<p>To the best of our knowledge, there is no evidence in the literature that secret and unexpected interventions are more efficient, especially after the initial first hours</p>
+<ul class="simple">
+<li><p>On the contrary, unexpected interventions effects tend to fade quite fast</p></li>
+<li><p>Unexpected FX interventions tend to impede anchoring <strong>FX market expectations</strong> and <strong>harm the credibility</strong> of the central bank (“desperate move”)</p></li>
+</ul>
+<p>Based on the 2021 BIS survey on FXI practices, it seems that more than 2/3 of central banks are communicating ex-post about their FX interventions, while only 40% of them are conducting pre-annouced interventions.</p>
+<p>BIS Survey on FXI Communication
+<img alt="FX Intervention Communication" src="../../_images/bis_communication.PNG" />
+<em>Source: <a class="reference external" href="https://www.bis.org/publ/mc_insights_fxinterventions.pdf">BIS 2021</a></em></p>
+<p>BIS Survey on Publication of FX Interventions
+<img alt="FX Intervention Communication" src="../../_images/bis_public_information.PNG" />
+<em>Source: <a class="reference external" href="https://www.bis.org/publ/mc_insights_fxinterventions.pdf">BIS 2021</a></em></p>
+<p>Some central banks offer public intervention data, for instance through the website of <a class="reference external" href="https://fred.stlouisfed.org/">FRED (Federal Reserve Bank of St Louis)</a>:</p>
+<ul class="simple">
+<li><p>Australia (1983-2006)</p></li>
+<li><p>Germany (1976-1995)</p></li>
+<li><p>Italy (1988-1998)</p></li>
+<li><p>Japan (1991-2022)</p></li>
+<li><p>Mexico (1997-2011)</p></li>
+<li><p>Switzerland (1975-2001)</p></li>
+<li><p>Turkey (2002-2019)</p></li>
+<li><p>United States (1973-2003)</p></li>
+</ul>
+<p>Some central banks also publish information about their FX interventions on their website:</p>
+<ul class="simple">
+<li><p>Argentina</p></li>
+<li><p>Chile</p></li>
+<li><p>Georgia</p></li>
+<li><p>Kyrgyz Republic</p></li>
+<li><p>United Kingdom</p></li>
+</ul>
+</section>
+<section id="fx-intervention-effectiveness">
+<h2>FX Intervention Effectiveness<a class="headerlink" href="#fx-intervention-effectiveness" title="Link to this heading">#</a></h2>
+<div class="warning admonition">
+<p class="admonition-title">Challenges in assessing FX Intervention Effectiveness</p>
+<p>It is in general very difficult to assess the effectiveness of FX intervention, due to simultaneity issues</p>
+</div>
+<p>The decision to intervene is often not independent from the movements in the exchange rate</p>
+<ul class="simple">
+<li><p>Most likely, FX intervention occur in reaction to unwanted exchange rate changes</p></li>
+</ul>
+<p>The decision to intervene may also be part of a broader set of policy actions (monetary and/or fiscal policy, capital controls, etc.), potentially leading to an <strong>overestimation bias</strong> on FX intervention effectiveness.</p>
+<ul class="simple">
+<li><p>Studies based on high-frequency data (intra-daily) maybe be less subject to the <strong>simultaneity bias</strong> but can’t assess whether intervention has lasting effects</p></li>
+<li><p>The <a class="reference external" href="https://www.bis.org/publ/bppdf/bispap73.htm">BIS 2013</a> has released a paper discussing FXI effectiveness for Chile, Colombia, Mexico, Peru, etc. during the GFC</p></li>
+<li><p>Another example, using the <strong>regression discontinuity</strong> design around a rule threshold, as done by <a class="reference external" href="https://econpapers.repec.org/paper/bdrborrec/965.htm">Kuersteiner et al. 2018</a> on Columbia FX interventions.</p></li>
+<li><p>Other researchers have used <strong>counterfactual matching</strong> to construct a synthetic group as counterfactual</p>
+<ul>
+<li><p>Counterfactual uses data from other countries, with weights based on the co-movemevent with the currency of interest</p></li>
+<li><p>Not appropriate for frequent interventions but useful at the event level</p></li>
+<li><p>Can not be used in the case of a global shock</p></li>
+</ul>
+</li>
+</ul>
+<p>The results of a comprehensive study (not intra-day) by <a class="reference external" href="https://www.aeaweb.org/articles?id=10.1257/mac.20150317">Fratzscher et al. 2019</a> suggest that central banks:</p>
+<ul class="simple">
+<li><p>Have around 60% success in the ability to <strong>influence the direction</strong> of the exchange rate</p>
+<ul>
+<li><p>The success rate is higher if interventions are large and are accompanied by pre-announced communication</p></li>
+</ul>
+</li>
+<li><p>80% success in <strong>smoothing the path of the exchange rate</strong></p>
+<ul>
+<li><p>As observed by a reduction in exchange rate variation in the week after the intervention vs. the week before</p></li>
+</ul>
+</li>
+<li><p>80% success in stabilizing the exchange rate in a 2% narrow band during the next two weeks</p></li>
+</ul>
+</section>
+<section id="fx-interventions-and-capital-flows-management">
+<h2>FX Interventions and Capital Flows Management<a class="headerlink" href="#fx-interventions-and-capital-flows-management" title="Link to this heading">#</a></h2>
+<p>Capital flow management (CFM) may increase the efficacy of sterilized FX interventions by reducing foreign and domestic asset substituability</p>
+<ul class="simple">
+<li><p>Firms in EME issue more and more foreign currency debt, while EME sovereign debt is increasingly in local currency (with a larger fraction held by foreigners). Therefore:</p>
+<ul>
+<li><p>Currencies and domestic financing conditions are more exposed to swings in capital flows</p></li>
+</ul>
+</li>
+</ul>
+<p>In this context, EME may need/want full access to all policy tools given these vulnerabilities</p>
+<p>Foreign exchange interventions and capital flows management are rather complementary than substitutes:</p>
+<ul class="simple">
+<li><p>FXI is a more flexible tool, with much less market distortions, but often requires enough FX reserves/credibility to be efficient</p></li>
+<li><p>CFM is an administrative measure with immediate effect, that can be implemented without FX reserves, but can be highly distortionary and create a stigma</p></li>
+</ul>
+<p>Capital flows management is a complex topic, and should be applied with care. We don’t cover it here. For more information, see <a class="reference external" href="https://www.imf.org/en/Topics/Capital-Flows">IMF</a></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="resources">
+<h1>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h1>
+<p>I present below a few key interesting resources regarding central banks interventions on the FX market:</p>
+<ul class="simple">
+<li><p>A textbook presentation of foreing exchange interventions can be found in Sarno and Taylor (2012): <a class="reference external" href="https://www.cambridge.org/core/books/abs/economics-of-exchange-rates/official-intervention-in-the-foreign-exchange-market/539435B26391C092195233098F887850">link</a></p></li>
+<li><p>The IMF has published a guidance note on FX interventions on the spot and derivatives market (2021): <a class="reference external" href="https://www.imf.org/-/media/Files/Publications/covid19-special-notes/en-special-series-on-covid-19-central-bank-support-for-foreign-exchange-markets.ashx">link</a></p></li>
+<li><p>The BIS publishes interesting papers reflecting BIS surveys conducted with central banks. For instance (2019): <a class="reference external" href="https://www.bis.org/publ/bppdf/bispap104b-rh.pdf">link</a></p></li>
+<li><p>A recent and quite comprehensive database on FX Interventions (2021), compiled by IMF colleagues: <a class="reference external" href="https://www.imf.org/en/Publications/WP/Issues/2021/02/19/Foreign-Exchange-Intervention-A-Dataset">link</a></p></li>
+<li><p>Lafarguette and Veyrune (2021) designed a risk-based framework for FX interventions: <a class="reference external" href="https://www.imf.org/en/Publications/WP/Issues/2021/02/12/Foreign-Exchange-Intervention-Rules-for-Central-Banks-A-Risk-based-Framework-50081">link</a></p></li>
+<li><p>Popper (2022) provides a very complete literature review on FX Interventions: <a class="reference external" href="https://www.ssc.wisc.edu/~mchinn/Popper_FXI_apr22.pdf">link</a></p></li>
+<li><p>Kathryn Dominguez, professor at U-Michigan, specialized on FX interventions: <a class="reference external" href="http://www-personal.umich.edu/~kathrynd/index.html">link</a></p></li>
+<li><p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0022199618300771">Kuersteiner et al. (2018)</a> provide an in-depth analysis of the effectiveness of sterilized foreign exchange interventions in Colombia, using tick-by-tick data for a clean identification of the FXI impact</p></li>
+<li><p>An interesting academic paper with a policy angle, oriented towards the comparison between FX interventions in Israel and in Switzerland: <a class="reference external" href="https://link.springer.com/article/10.1007/s11079-019-09522-0">Cukierman 2019</a></p></li>
+<li><p>General useful resource: the IMF Glossary <a class="reference external" href="https://www.imf.org/en/About/Glossary">link</a></p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs/fxi"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">IMF - STI: Risk-Based Framework for FX Intervention</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="practice.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">International Practices</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Theory of FX Interventions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-trilemma">The Trilemma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-and-intermediate-objectives">Goals and Intermediate Objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-goals-motivating-interventions-on-the-fx-market">Main Goals Motivating Interventions on the FX market</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-intermediate-objectives">FX Intermediate Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risks-associated-with-fx-interventions">Risks Associated with FX Interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sterilization-of-fx-interventions">Sterilization of FX Interventions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typology">Typology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#can-all-central-banks-sterilize">Can All Central Banks Sterilize?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#costs-of-fx-interventions">Costs of FX Interventions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transmission-channels-of-fx-interventions">Transmission Channels of FX Interventions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signaling-channel">Signaling channel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-portfolio-rebalancing-channel">The portfolio rebalancing channel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fxi-implementation">FXI Implementation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fxi-timing">FXI Timing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fxi-rule-vs-discretion">FXI: Rule vs Discretion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-intervention-size-and-frequency">FX Intervention Size and Frequency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#targeted-vs-open-market-interventions">Targeted vs Open-Market Interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-instruments">FX Instruments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profitability-of-fx-interventions">Profitability of FX interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-around-fx-interventions">Communication around FX interventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-intervention-effectiveness">FX Intervention Effectiveness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fx-interventions-and-capital-flows-management">FX Interventions and Capital Flows Management</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Romain Lafarguette and Amine Raboun
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
